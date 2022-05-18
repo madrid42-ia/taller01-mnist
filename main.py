@@ -13,12 +13,12 @@ while True:
    ret, frame = cap.read()
 
    crop = get_paper(frame)
-   tensor = model.transforms(crop) #.unsqueeze(dim=0)
+   tensor = model.transforms(crop).unsqueeze(dim=0)
    number = torch.argmax(model(tensor))
    putText(frame, f'Number={number.item()}')
 
    cv2.imshow('frame', frame)
-   cv2.imshow('crop', crop)
+   cv2.imshow('crop', cv2.resize(crop, (128, 128)))
    key = cv2.waitKey(1)
    if  key == ord('q'):
       break
